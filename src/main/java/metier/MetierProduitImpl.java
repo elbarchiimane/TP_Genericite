@@ -30,8 +30,11 @@ public class MetierProduitImpl implements IMetier<Produit> {
 
     @Override
     public void delete(long id) {
+        Produit result=null;
         for (Produit p: listProduit){
-            if(p.getId()==id) listProduit.remove(p);
+            if(p.getId()==id) result=p;
         }
+        listProduit.remove(result);
     }
+
 }
