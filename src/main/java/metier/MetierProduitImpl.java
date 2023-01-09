@@ -2,10 +2,11 @@ package metier;
 
 import metier.Produit;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetierProduitImpl implements IMetier<Produit> {
+public class MetierProduitImpl implements IMetier<Produit>  {
 
     List<Produit> listProduit=new ArrayList<>();
     @Override
@@ -14,7 +15,16 @@ public class MetierProduitImpl implements IMetier<Produit> {
     }
 
     @Override
-    public List<Produit> getAll() {
+    public List<Produit> getAll() throws Exception {
+        File file=new File("produits.txt");
+        FileInputStream fis=new  FileInputStream(file);
+        ObjectInputStream ois=new ObjectInputStream(fis);
+        Produit p;
+        while(fis.available() > 0){
+
+            listProduit= (List<Produit>) ois.readObject();
+        }
+        ois.close();
         return listProduit;
     }
 
@@ -35,6 +45,15 @@ public class MetierProduitImpl implements IMetier<Produit> {
             if(p.getId()==id) result=p;
         }
         listProduit.remove(result);
+    }
+
+    @Override
+    public void saveAll() throws Exception {
+    File file=new File("produits.txt");
+    FileOutputStream fos=new FileOutputStream(file);
+    ObjectOutputStream oos=new ObjectOutputStream(fos);
+    oos.writeObject(listProduit);
+    oos.close();
     }
 
 }

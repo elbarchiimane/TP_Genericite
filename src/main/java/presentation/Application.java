@@ -2,12 +2,14 @@ package presentation;
 
 import metier.MetierProduitImpl;
 import metier.Produit;
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
 
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         MetierProduitImpl m=new MetierProduitImpl();
        /* m.add(new Produit(1,"pc","hp",16988,"bjffifjik"));
         System.out.println("List of elements");
